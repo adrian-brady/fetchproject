@@ -10,6 +10,8 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import com.adrianbrady.fetchproject.ui.theme.FetchProjectTheme
 
+private const val TAG = "MainActivity"
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

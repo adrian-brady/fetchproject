@@ -1,5 +1,6 @@
 package com.adrianbrady.fetchproject.ui
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -21,11 +22,14 @@ sealed interface ProjectUiState {
     object Loading : ProjectUiState
 }
 
+private const val TAG = "PROJECT_VIEW_MODEL"
+
 class ProjectViewModel(private val responseRepository: ResponseRepository) : ViewModel() {
     var projectUiState: ProjectUiState by mutableStateOf(ProjectUiState.Loading)
         private set
 
     private fun getJSON() {
+        Log.d(TAG, "getJSON Called")
         viewModelScope.launch {
             projectUiState = try {
                 val result = responseRepository.getResponseJSON()
