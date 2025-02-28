@@ -52,8 +52,8 @@ fun ProjectApp(
             composable(route = AppScreen.Home.name) {
                 HomeScreen(
                     onNextButtonClicked = {
-                        viewModel.makeRequest()
                         navController.navigate(AppScreen.Results.name)
+                        viewModel.makeRequest()
                     }
                 )
             }

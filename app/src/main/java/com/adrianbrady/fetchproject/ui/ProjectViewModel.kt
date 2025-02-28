@@ -30,17 +30,20 @@ class ProjectViewModel(private val responseRepository: ResponseRepository) : Vie
 
     private fun getJSON() {
         Log.d(TAG, "getJSON Called")
-        viewModelScope.launch {
-            projectUiState = try {
-                val result = responseRepository.getResponseJSON()
-                ProjectUiState.Success(result)
-            } catch (e: IOException) {
-                ProjectUiState.Error
+        if (projectUiState is ProjectUiState.Loading || projectUiState is ProjectUiState.Error) {
+            viewModelScope.launch {
+                projectUiState = try {
+                    val result = responseRepository.getResponseJSON()
+                    ProjectUiState.Success(result)
+                } catch (e: IOException) {
+                    ProjectUiState.Error
+                }
             }
         }
     }
 
     fun makeRequest() {
+        projectUiState = ProjectUiState.Loading
         getJSON()
     }
 
