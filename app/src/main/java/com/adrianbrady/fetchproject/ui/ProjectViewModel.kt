@@ -13,15 +13,16 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import com.adrianbrady.fetchproject.ProjectApplication
 import com.adrianbrady.fetchproject.data.ResponseRepository
 import com.adrianbrady.fetchproject.data.model.ItemGroup
+import java.io.IOException
 
 sealed interface ProjectUiState {
-    data class Success(val response: String) : ProjectUiState
+    data class Success(val response: List<ItemGroup>) : ProjectUiState
     object Error : ProjectUiState
     object Loading : ProjectUiState
 }
 
 class ProjectViewModel(private val responseRepository: ResponseRepository) : ViewModel() {
-    var projectUiState: List<ItemGroup> by mutableStateOf(emptyList())
+    var projectUiState: ProjectUiState by mutableStateOf(ProjectUiState.Loading)
         private set
 
     init {
@@ -29,7 +30,14 @@ class ProjectViewModel(private val responseRepository: ResponseRepository) : Vie
     }
 
     private fun getJSON() {
-        viewModelScope.launch { projectUiState = responseRepository.getResponseJSON() }
+        viewModelScope.launch {
+            projectUiState = try {
+                val result = responseRepository.getResponseJSON()
+                ProjectUiState.Success(result)
+            } catch (e: IOException) {
+                ProjectUiState.Error
+            }
+        }
     }
 
     companion object {

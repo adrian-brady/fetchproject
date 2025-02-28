@@ -1,8 +1,10 @@
 package com.adrianbrady.fetchproject.ui
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,6 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
@@ -25,7 +28,7 @@ import com.adrianbrady.fetchproject.ui.theme.FetchProjectTheme
 
 
 @Composable
-fun ItemGroups(
+fun ItemResponseScreen(
     projectUiState: List<ItemGroup>,
     contentPadding: PaddingValues = PaddingValues(),
     modifier: Modifier = Modifier,
@@ -44,6 +47,40 @@ fun ItemGroups(
                 ItemGroup(group, modifier)
             }
         }
+    }
+}
+
+@Composable
+fun ItemLoadingScreen(
+    contentPadding: PaddingValues = PaddingValues(),
+    modifier: Modifier = Modifier
+) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier
+            .padding(contentPadding)
+            .fillMaxSize()
+    ) {
+        Text(
+            "Loading"
+        )
+    }
+}
+
+@Composable
+fun ErrorScreen(
+    contentPadding: PaddingValues = PaddingValues(),
+    modifier: Modifier = Modifier
+) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier
+            .padding(contentPadding)
+            .fillMaxSize()
+    ) {
+        Text(
+            "Error"
+        )
     }
 }
 
@@ -105,7 +142,7 @@ fun ProjectTitleBar(modifier: Modifier = Modifier) {
 fun ItemGroupsPreview() {
     FetchProjectTheme {
         Surface {
-            ItemGroups(listOf(
+            ItemResponseScreen(listOf(
                 ItemGroup(1,
                     listOf(
                         ProjectItem(1, "item 1"),
@@ -136,7 +173,7 @@ fun ItemGroupsPreview() {
 fun ItemGroupsDarkPreview() {
     FetchProjectTheme(darkTheme = true) {
         Surface {
-            ItemGroups(listOf(
+            ItemResponseScreen(listOf(
                 ItemGroup(1,
                     listOf(
                         ProjectItem(1, "item 1"),
