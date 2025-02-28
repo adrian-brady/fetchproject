@@ -24,7 +24,10 @@ class NetworkResponseRepository(
                     it.key,
                     items = it.value
                         .mapNotNull { item -> item.name?.let { ProjectItem(item.id, it) } }
+                        .filter { it.name != "" }
+                        .sortedBy { it.id }
                 ) }
+                .sortedBy { it.listId }
             return groups
         } else {
             throw Exception("network request error")
