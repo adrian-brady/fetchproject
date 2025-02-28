@@ -25,10 +25,6 @@ class ProjectViewModel(private val responseRepository: ResponseRepository) : Vie
     var projectUiState: ProjectUiState by mutableStateOf(ProjectUiState.Loading)
         private set
 
-    init {
-        getJSON()
-    }
-
     private fun getJSON() {
         viewModelScope.launch {
             projectUiState = try {
@@ -38,6 +34,10 @@ class ProjectViewModel(private val responseRepository: ResponseRepository) : Vie
                 ProjectUiState.Error
             }
         }
+    }
+
+    fun makeRequest() {
+        getJSON()
     }
 
     companion object {

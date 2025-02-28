@@ -121,22 +121,6 @@ fun ItemGroup(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ProjectTitleBar(modifier: Modifier = Modifier) {
-    CenterAlignedTopAppBar(
-        title = {
-            Row() {
-                Text(
-                    text = "Fetch Project",
-                    style = MaterialTheme.typography.displayLarge
-                )
-            }
-        },
-        modifier = modifier
-    )
-}
-
 @Preview
 @Composable
 fun ItemGroupsPreview() {
