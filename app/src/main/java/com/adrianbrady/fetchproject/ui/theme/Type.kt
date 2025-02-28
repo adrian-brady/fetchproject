@@ -20,8 +20,8 @@ val MontSerrat = FontFamily(
 // Set of Material typography styles to start with
 val Typography = Typography(
     displayLarge = TextStyle(
-        fontFamily = AbrilFatFace,
-        fontWeight = FontWeight.Normal,
+        fontFamily = MontSerrat,
+        fontWeight = FontWeight.Bold,
         fontSize = 36.sp
     ),
     displayMedium = TextStyle(
