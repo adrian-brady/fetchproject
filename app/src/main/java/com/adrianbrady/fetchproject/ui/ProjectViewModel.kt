@@ -8,13 +8,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.adrianbrady.fetchproject.data.model.Response
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import com.adrianbrady.fetchproject.ProjectApplication
-import com.adrianbrady.fetchproject.data.NetworkResponseRepository
 import com.adrianbrady.fetchproject.data.ResponseRepository
+import com.adrianbrady.fetchproject.data.model.ProjectData
 
 sealed interface ProjectUiState {
     data class Success(val response: String) : ProjectUiState
@@ -23,7 +21,7 @@ sealed interface ProjectUiState {
 }
 
 class ProjectViewModel(private val responseRepository: ResponseRepository) : ViewModel() {
-    var projectUiState: String by mutableStateOf("")
+    var projectUiState: List<ProjectData> by mutableStateOf(emptyList())
         private set
 
     init {
