@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import com.adrianbrady.fetchproject.ProjectApplication
 import com.adrianbrady.fetchproject.data.ResponseRepository
-import com.adrianbrady.fetchproject.data.model.ProjectData
+import com.adrianbrady.fetchproject.data.model.ItemGroup
 
 sealed interface ProjectUiState {
     data class Success(val response: String) : ProjectUiState
@@ -21,7 +21,7 @@ sealed interface ProjectUiState {
 }
 
 class ProjectViewModel(private val responseRepository: ResponseRepository) : ViewModel() {
-    var projectUiState: List<ProjectData> by mutableStateOf(emptyList())
+    var projectUiState: List<ItemGroup> by mutableStateOf(emptyList())
         private set
 
     init {
