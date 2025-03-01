@@ -33,7 +33,7 @@ class NetworkResponseRepository(
                 .sortedBy { it.listId }
             return groups
         } else {
-            throw Exception("network request error")
+            throw Exception("network request error ${response.errorBody()}")
         }
     }
 }
