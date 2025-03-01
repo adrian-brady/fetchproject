@@ -87,7 +87,7 @@ fun GroupTitle(
             .padding(dimensionResource(R.dimen.padding_small))
     ) {
         Text(
-            text = "listId: ${group.listId}",
+            text = "List ID: ${group.listId}",
             style = MaterialTheme.typography.displayMedium,
             textAlign = TextAlign.Center
         )
