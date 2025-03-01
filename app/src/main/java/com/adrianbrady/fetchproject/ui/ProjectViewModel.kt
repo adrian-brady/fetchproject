@@ -16,6 +16,9 @@ import com.adrianbrady.fetchproject.data.ResponseRepository
 import com.adrianbrady.fetchproject.data.model.ItemGroup
 import java.io.IOException
 
+/**
+ * Holds the UI State of the app, wraps the parsed response of the GET request to the URL on the Success Case.
+ */
 sealed interface ProjectUiState {
     data class Success(val response: List<ItemGroup>) : ProjectUiState
     object Error : ProjectUiState
@@ -42,6 +45,10 @@ class ProjectViewModel(private val responseRepository: ResponseRepository) : Vie
         }
     }
 
+    /**
+     * Public caller for requesting the JSON from the URL.
+     * Handles setting the UI state when a request is made.
+     */
     fun makeRequest() {
         projectUiState = ProjectUiState.Loading
         getJSON()

@@ -24,6 +24,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.adrianbrady.fetchproject.R
 
+/**
+ * ProjectApp is the main display of the app. It wraps the NavHost for Home and Project request navigation.
+ */
 @Composable
 fun ProjectApp(
     viewModel: ProjectViewModel = viewModel(factory = ProjectViewModel.Factory),

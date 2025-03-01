@@ -6,6 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
+/**
+ * The ProjectScreen displays the status of the data request. It has 3 states: Loading, Success, and Error.
+ */
 @Composable
 fun ProjectScreen(
    projectUiState: ProjectUiState,

@@ -15,14 +15,12 @@ class NetworkResponseRepository(
     private val apiService: ProjectApiService
 ) : ResponseRepository {
     override suspend fun getResponseJSON(): List<ItemGroup> {
-        //val response = """[{"id": 1, "listId": 1, "name": null},{"id": 1, "listId": 1, "name": null}]"""
-        //val json = Json.decodeFromString<List<ProjectData>>(response)
-        //return json
         val response = apiService.getJSON()
         Log.d(TAG, "response received")
 
         if (response.isSuccessful) {
             val items = response.body() ?: emptyList()
+            // Parse list of ProjectItemApi items into a list of ItemGroups, grouped by their listId
             val groups = items
                 .groupBy { it.listId }
                 .map{ ItemGroup(
