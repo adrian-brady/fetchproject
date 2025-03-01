@@ -143,6 +143,7 @@ fun LoadingScreen(
 @Composable
 fun ErrorScreen(
     contentPadding: PaddingValues = PaddingValues(),
+    message: String = "Error",
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -152,7 +153,7 @@ fun ErrorScreen(
             .fillMaxSize()
     ) {
         Text(
-            "Error"
+            text = message
         )
     }
 }

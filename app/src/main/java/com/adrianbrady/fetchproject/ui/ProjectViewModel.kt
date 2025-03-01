@@ -21,7 +21,7 @@ import java.io.IOException
  */
 sealed interface ProjectUiState {
     data class Success(val response: List<ItemGroup>) : ProjectUiState
-    object Error : ProjectUiState
+    data class Error(val errorMessage: String) : ProjectUiState
     object Loading : ProjectUiState
 }
 
@@ -39,7 +39,7 @@ class ProjectViewModel(private val responseRepository: ResponseRepository) : Vie
                     val result = responseRepository.getResponseJSON()
                     ProjectUiState.Success(result)
                 } catch (e: IOException) {
-                    ProjectUiState.Error
+                    ProjectUiState.Error(e.message ?: "")
                 }
             }
         }
