@@ -1,5 +1,9 @@
 package com.adrianbrady.fetchproject.ui
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -41,8 +45,8 @@ fun ResponseScreen(
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
-        contentPadding = contentPadding,
         modifier = modifier
+            .fillMaxWidth()
             .padding(dimensionResource(R.dimen.padding_small))
     ) {
         items(projectUiState) { group ->
@@ -50,6 +54,12 @@ fun ResponseScreen(
             Card(
                 modifier = modifier.fillMaxWidth()
                     .padding(dimensionResource(R.dimen.padding_small))
+                    .animateContentSize(
+                        animationSpec = spring(
+                            dampingRatio = Spring.DampingRatioNoBouncy,
+                            stiffness = Spring.StiffnessMedium
+                        )
+                    )
             ) {
                 GroupTitle(
                     group,
