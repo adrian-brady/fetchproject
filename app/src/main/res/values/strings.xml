@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">FetchProject</string>
     <string name="back_button">back button</string>
+    <string name="expand_button_content_description">expand item list\n</string>
 </resources>
