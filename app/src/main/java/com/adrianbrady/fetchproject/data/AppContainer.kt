@@ -13,14 +13,8 @@ interface AppContainer {
 class DefaultAppContainer : AppContainer {
     private val baseURL = "https://fetch-hiring.s3.amazonaws.com"
 
-    private val json = Json {
-        ignoreUnknownKeys = true
-        isLenient = true
-        explicitNulls = false
-    }
-
     private val retrofit: Retrofit = Retrofit.Builder()
-        .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+        .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
         .baseUrl(baseURL)
         .build()
 
