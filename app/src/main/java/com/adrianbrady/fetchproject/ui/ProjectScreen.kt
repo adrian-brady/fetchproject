@@ -20,7 +20,7 @@ fun ProjectScreen(
       modifier = modifier
    ) {
        when (projectUiState) {
-           is ProjectUiState.Success -> ResponseScreen(projectUiState.response, contentPadding, modifier)
+           is ProjectUiState.Success -> ResponseScreen(projectUiState.response, modifier)
            is ProjectUiState.Loading -> LoadingScreen(contentPadding, modifier)
            is ProjectUiState.Error -> ErrorScreen(contentPadding, projectUiState.errorMessage, modifier)
        }

@@ -32,11 +32,11 @@ val Typography = Typography(
     labelSmall = TextStyle(
         fontFamily = MontSerrat,
         fontWeight = FontWeight.Bold,
-        fontSize = 14.sp
+        fontSize = 16.sp
     ),
     bodyLarge = TextStyle(
         fontFamily = MontSerrat,
         fontWeight = FontWeight.Normal,
-        fontSize = 14.sp,
+        fontSize = 16.sp,
     ),
 )

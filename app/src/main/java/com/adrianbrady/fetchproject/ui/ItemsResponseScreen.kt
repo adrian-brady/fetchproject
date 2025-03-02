@@ -40,7 +40,6 @@ import com.adrianbrady.fetchproject.ui.theme.FetchProjectTheme
 @Composable
 fun ResponseScreen(
     projectUiState: List<ItemGroup>,
-    contentPadding: PaddingValues = PaddingValues(),
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -87,7 +86,7 @@ fun GroupTitle(
             .padding(dimensionResource(R.dimen.padding_small))
     ) {
         Text(
-            text = "List ID: ${group.listId}",
+            text = "List ${group.listId}",
             style = MaterialTheme.typography.displayMedium,
             textAlign = TextAlign.Center
         )
@@ -115,10 +114,10 @@ fun GroupContent(
             .padding(bottom = dimensionResource(R.dimen.padding_small))
     ) {
         group.items.forEach { item ->
-            Text(
-                text = "id: ${item.id}, name: ${item.name}",
-                style = MaterialTheme.typography.bodyLarge
-            )
+                Text(
+                    text = item.name,
+                    style = MaterialTheme.typography.bodyLarge
+                )
         }
     }
 }
@@ -135,7 +134,8 @@ fun LoadingScreen(
             .fillMaxSize()
     ) {
         Text(
-            "Loading"
+            text = "Loading",
+            style = MaterialTheme.typography.displayMedium
         )
     }
 }
@@ -153,7 +153,8 @@ fun ErrorScreen(
             .fillMaxSize()
     ) {
         Text(
-            text = message
+            text = message,
+            style = MaterialTheme.typography.displayMedium
         )
     }
 }

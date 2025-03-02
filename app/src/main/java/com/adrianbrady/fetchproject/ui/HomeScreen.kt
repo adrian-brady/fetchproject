@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -45,7 +46,10 @@ fun RequestButton(
         modifier = Modifier
             .widthIn(min = 25.dp)
     ) {
-        Text("Request Data")
+        Text(
+            text = "Request Data",
+            style = MaterialTheme.typography.bodySmall
+        )
     }
 }
 
