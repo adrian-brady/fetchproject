@@ -12,34 +12,34 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import com.adrianbrady.fetchproject.ProjectApplication
-import com.adrianbrady.fetchproject.data.ResponseRepository
-import com.adrianbrady.fetchproject.data.model.ItemGroup
+import com.adrianbrady.fetchproject.data.Repository
+import com.adrianbrady.fetchproject.data.model.ItemList
 import java.io.IOException
 
 /**
  * Holds the UI State of the app, wraps the parsed response of the GET request to the URL on the Success Case.
  */
-sealed interface ProjectUiState {
-    data class Success(val response: List<ItemGroup>) : ProjectUiState
-    data class Error(val errorMessage: String) : ProjectUiState
-    object Loading : ProjectUiState
+sealed interface UiState {
+    data class Success(val response: List<ItemList>) : UiState
+    data class Error(val errorMessage: String) : UiState
+    object Loading : UiState
 }
 
 private const val TAG = "PROJECT_VIEW_MODEL"
 
-class ProjectViewModel(private val responseRepository: ResponseRepository) : ViewModel() {
-    var projectUiState: ProjectUiState by mutableStateOf(ProjectUiState.Loading)
+class AppViewModel(private val repository: Repository) : ViewModel() {
+    var uiState: UiState by mutableStateOf(UiState.Loading)
         private set
 
     private fun getJSON() {
         Log.d(TAG, "getJSON Called")
-        if (projectUiState is ProjectUiState.Loading || projectUiState is ProjectUiState.Error) {
+        if (uiState is UiState.Loading || uiState is UiState.Error) {
             viewModelScope.launch {
-                projectUiState = try {
-                    val result = responseRepository.getResponseJSON()
-                    ProjectUiState.Success(result)
+                uiState = try {
+                    val result = repository.getResponseJSON()
+                    UiState.Success(result)
                 } catch (e: IOException) {
-                    ProjectUiState.Error(e.message ?: "")
+                    UiState.Error(e.message ?: "")
                 }
             }
         }
@@ -50,7 +50,7 @@ class ProjectViewModel(private val responseRepository: ResponseRepository) : Vie
      * Handles setting the UI state when a request is made.
      */
     fun makeRequest() {
-        projectUiState = ProjectUiState.Loading
+        uiState = UiState.Loading
         getJSON()
     }
 
@@ -58,8 +58,8 @@ class ProjectViewModel(private val responseRepository: ResponseRepository) : Vie
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val application = (this[APPLICATION_KEY] as ProjectApplication)
-                val repository = application.container.responseRepository
-                ProjectViewModel(repository)
+                val repository = application.container.repository
+                AppViewModel(repository)
             }
         }
     }

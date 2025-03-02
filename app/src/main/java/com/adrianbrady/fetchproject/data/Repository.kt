@@ -1,20 +1,20 @@
 package com.adrianbrady.fetchproject.data
 
 import android.util.Log
-import com.adrianbrady.fetchproject.data.api.ProjectApiService
-import com.adrianbrady.fetchproject.data.model.ItemGroup
-import com.adrianbrady.fetchproject.data.model.ProjectItem
+import com.adrianbrady.fetchproject.data.api.ApiService
+import com.adrianbrady.fetchproject.data.model.ItemList
+import com.adrianbrady.fetchproject.data.model.Item
 
-interface ResponseRepository {
-    suspend fun getResponseJSON(): List<ItemGroup>
+interface Repository {
+    suspend fun getResponseJSON(): List<ItemList>
 }
 
-private const val TAG = "NETWORK_RESPONSE_REPOSITORY"
+private const val TAG = "NETWORK_REPOSITORY"
 
-class NetworkResponseRepository(
-    private val apiService: ProjectApiService
-) : ResponseRepository {
-    override suspend fun getResponseJSON(): List<ItemGroup> {
+class NetworkRepository(
+    private val apiService: ApiService
+) : Repository {
+    override suspend fun getResponseJSON(): List<ItemList> {
         val response = apiService.getJSON()
         Log.d(TAG, "response received")
 
@@ -23,10 +23,10 @@ class NetworkResponseRepository(
             // Parse list of ProjectItemApi items into a list of ItemGroups, grouped by their listId
             val groups = items
                 .groupBy { it.listId }
-                .map{ ItemGroup(
+                .map{ ItemList(
                     it.key,
                     items = it.value
-                        .mapNotNull { item -> item.name?.let { ProjectItem(item.id, it) } }
+                        .mapNotNull { item -> item.name?.let { Item(item.id, it) } }
                         .filter { it.name != "" }
                         .sortedBy { it.id }
                 ) }

@@ -33,13 +33,34 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.adrianbrady.fetchproject.R
-import com.adrianbrady.fetchproject.data.model.ItemGroup
-import com.adrianbrady.fetchproject.data.model.ProjectItem
+import com.adrianbrady.fetchproject.data.model.ItemList
+import com.adrianbrady.fetchproject.data.model.Item
 import com.adrianbrady.fetchproject.ui.theme.FetchProjectTheme
 
+/**
+ * The RequestScreen displays the status of the data request. It has 3 states: Loading, Success, and Error.
+ */
 @Composable
-fun ResponseScreen(
-    projectUiState: List<ItemGroup>,
+fun RequestScreen(
+    uiState: UiState,
+    contentPadding: PaddingValues,
+    modifier: Modifier = Modifier,
+) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier
+    ) {
+        when (uiState) {
+            is UiState.Success -> RequestSuccessScreen(uiState.response, modifier)
+            is UiState.Loading -> RequestLoadingScreen(contentPadding, modifier)
+            is UiState.Error -> RequestErrorScreen(contentPadding, uiState.errorMessage, modifier)
+        }
+    }
+}
+
+@Composable
+fun RequestSuccessScreen(
+    projectUiState: List<ItemList>,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -59,14 +80,14 @@ fun ResponseScreen(
                         )
                     )
             ) {
-                GroupTitle(
+                ListTitle(
                     group,
                     expanded,
                     onClick = { expanded = !expanded },
                     modifier,
                 )
                 if (expanded) {
-                    GroupContent(group, modifier)
+                    ListContent(group, modifier)
                 }
             }
         }
@@ -74,8 +95,8 @@ fun ResponseScreen(
 }
 
 @Composable
-fun GroupTitle(
-    group: ItemGroup,
+fun ListTitle(
+    group: ItemList,
     expanded: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -104,8 +125,8 @@ fun GroupTitle(
 }
 
 @Composable
-fun GroupContent(
-    group: ItemGroup,
+fun ListContent(
+    group: ItemList,
     modifier: Modifier = Modifier
 ){
     Column(
@@ -123,7 +144,7 @@ fun GroupContent(
 }
 
 @Composable
-fun LoadingScreen(
+fun RequestLoadingScreen(
     contentPadding: PaddingValues = PaddingValues(),
     modifier: Modifier = Modifier
 ) {
@@ -141,7 +162,7 @@ fun LoadingScreen(
 }
 
 @Composable
-fun ErrorScreen(
+fun RequestErrorScreen(
     contentPadding: PaddingValues = PaddingValues(),
     message: String = "Error",
     modifier: Modifier = Modifier
@@ -164,26 +185,26 @@ fun ErrorScreen(
 fun ItemGroupsPreview() {
     FetchProjectTheme {
         Surface {
-            ResponseScreen(listOf(
-                ItemGroup(1,
+            RequestSuccessScreen(listOf(
+                ItemList(1,
                     listOf(
-                        ProjectItem(1, "item 1"),
-                        ProjectItem(2, "item 2"),
+                        Item(1, "item 1"),
+                        Item(2, "item 2"),
                     )),
-                ItemGroup(2,
+                ItemList(2,
                     listOf(
-                        ProjectItem(1, "item 1"),
-                        ProjectItem(2, "item 2"),
+                        Item(1, "item 1"),
+                        Item(2, "item 2"),
                     )),
-                ItemGroup(3,
+                ItemList(3,
                     listOf(
-                        ProjectItem(1, "item 1"),
-                        ProjectItem(2, "item 2"),
+                        Item(1, "item 1"),
+                        Item(2, "item 2"),
                     )),
-                ItemGroup(4,
+                ItemList(4,
                     listOf(
-                        ProjectItem(1, "item 1"),
-                        ProjectItem(2, "item 2"),
+                        Item(1, "item 1"),
+                        Item(2, "item 2"),
                     )),
             ))
         }
@@ -196,26 +217,26 @@ fun ItemGroupsPreview() {
 fun ItemGroupsDarkPreview() {
     FetchProjectTheme(darkTheme = true) {
         Surface {
-            ResponseScreen(listOf(
-                ItemGroup(1,
+            RequestSuccessScreen(listOf(
+                ItemList(1,
                     listOf(
-                        ProjectItem(1, "item 1"),
-                        ProjectItem(2, "item 2"),
+                        Item(1, "item 1"),
+                        Item(2, "item 2"),
                     )),
-                ItemGroup(2,
+                ItemList(2,
                     listOf(
-                        ProjectItem(1, "item 1"),
-                        ProjectItem(2, "item 2"),
+                        Item(1, "item 1"),
+                        Item(2, "item 2"),
                     )),
-                ItemGroup(3,
+                ItemList(3,
                     listOf(
-                        ProjectItem(1, "item 1"),
-                        ProjectItem(2, "item 2"),
+                        Item(1, "item 1"),
+                        Item(2, "item 2"),
                     )),
-                ItemGroup(4,
+                ItemList(4,
                     listOf(
-                        ProjectItem(1, "item 1"),
-                        ProjectItem(2, "item 2"),
+                        Item(1, "item 1"),
+                        Item(2, "item 2"),
                     )),
             ))
         }

@@ -1,13 +1,13 @@
 package com.adrianbrady.fetchproject.data
 
-import com.adrianbrady.fetchproject.data.api.ProjectApiService
+import com.adrianbrady.fetchproject.data.api.ApiService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
 
 interface AppContainer {
-    val responseRepository: ResponseRepository
+    val repository: Repository
 }
 
 class DefaultAppContainer : AppContainer {
@@ -18,11 +18,11 @@ class DefaultAppContainer : AppContainer {
         .baseUrl(baseURL)
         .build()
 
-    private val retrofitService: ProjectApiService by lazy {
-        retrofit.create(ProjectApiService::class.java)
+    private val retrofitService: ApiService by lazy {
+        retrofit.create(ApiService::class.java)
     }
 
-    override val responseRepository: ResponseRepository by lazy {
-        NetworkResponseRepository(retrofitService)
+    override val repository: Repository by lazy {
+        NetworkRepository(retrofitService)
     }
 }

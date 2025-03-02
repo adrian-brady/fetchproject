@@ -25,11 +25,11 @@ import androidx.navigation.compose.rememberNavController
 import com.adrianbrady.fetchproject.R
 
 /**
- * ProjectApp is the main display of the app. It wraps the NavHost for Home and Project request navigation.
+ * AppScreen is the main display of the app. It wraps the NavHost for Home and Request navigation.
  */
 @Composable
-fun ProjectApp(
-    viewModel: ProjectViewModel = viewModel(factory = ProjectViewModel.Factory),
+fun AppScreen(
+    viewModel: AppViewModel = viewModel(factory = AppViewModel.Factory),
     navController: NavHostController = rememberNavController()
 ) {
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -40,7 +40,7 @@ fun ProjectApp(
 
     Scaffold(
         topBar = {
-            ProjectTitleBar(
+            AppTitleBar(
                 currentScreen = currentScreen,
                 canNavigateBack = navController.previousBackStackEntry != null,
                 navigateUp = { navController.navigateUp() }
@@ -62,7 +62,7 @@ fun ProjectApp(
                 )
             }
             composable(route = AppScreen.Results.name) {
-                ProjectScreen(viewModel.projectUiState, innerPadding)
+                RequestScreen(viewModel.uiState, innerPadding)
             }
         }
 
@@ -71,7 +71,7 @@ fun ProjectApp(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProjectTitleBar(
+fun AppTitleBar(
     currentScreen: AppScreen,
     canNavigateBack: Boolean,
     modifier: Modifier = Modifier,
@@ -111,7 +111,7 @@ fun PreviewHome() {
     )
     Scaffold(
         topBar = {
-            ProjectTitleBar(
+            AppTitleBar(
                 currentScreen = currentScreen,
                 canNavigateBack = navController.previousBackStackEntry != null,
                 navigateUp = { navController.navigateUp() }
