@@ -119,7 +119,7 @@ fun ListTitle(
             onClick =  onClick,
         ) {
             Icon(
-                imageVector = if (expanded) Icons.Filled.ExpandMore else Icons.Filled.ExpandLess,
+                imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
                 contentDescription = stringResource(R.string.expand_button_content_description),
                 tint = MaterialTheme.colorScheme.secondary,
             )
